@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../context/AuthProvider';
 import AddressLink from '../components/AddressLink';
 import PlaceGallery from '../components/PlaceGallery';
 import { differenceInCalendarDays, differenceInDays } from 'date-fns';
 import { toast } from 'react-toastify';
 import Modal from '../components/Modal';
+// require('dotenv').config();
 
 function BookingPage() {
     const { state } = useContext(UserContext);
@@ -14,6 +15,7 @@ function BookingPage() {
     const { id } = useParams();
 
     const [show, setShow] = useState(false);
+    const [showQR, setShowQR] = useState(false);
     const [modal, setModal] = useState({
         title: "",
         message: "",
@@ -54,6 +56,28 @@ function BookingPage() {
             setBookingId(id);
         }
     }
+
+    const handlePayment = async (booking) => {
+        const payload = {
+            return_url: "http://localhost:3000/account/payment/success",
+            website_url: "http://localhost:3000",
+            amount: parseInt(booking.price) * 100,
+            purchase_order_id: booking._id,
+            purchase_order_name: booking.place.title,
+            customer_info: {
+                name: booking.name,
+                // email: "example@gmail.com",
+                phone: booking.phone
+            },
+        }
+        const response = await axios.post(`http://localhost:4000/api/payment/khalti-pay`, payload);
+        console.log(response);
+
+        if (response) {
+            window.location.href = `${response?.data?.data?.payment_url}`
+        }
+    }
+
     const handleDelete = async (id, message) => {
         try {
             // deleting the bookings
@@ -134,7 +158,20 @@ function BookingPage() {
                             </div>
                         )}</div>
                     </div>
-                    <div>Make a Payment</div>
+                    <div className='bg-white w-[40rem] px-4 py-8 rounded-lg'>
+                        <h2 className='text-2xl font-bold my-3'>Make Payment</h2>
+                        <div className='flex gap-5 items-center w-full mt-4 mb-6'>
+                            {/* Khalti Integration */}
+                            <button onClick={() => handlePayment(booking)}>
+                                <img className='h-14' src="/khalti.jpg" alt="" />
+                            </button>
+                            <Link>
+                                <img className='h-14 ml-3' src="/esewa.png" alt="" />
+                            </Link>
+                        </div>
+                        <button onClick={() => setShowQR(!showQR)} className='primary mt-4 mb-5 text-lg font-semibold'>Also, Use QR Code</button>
+                        {showQR && <img className='h-44 mx-auto -my-6' src="/qr.png" alt="" />}
+                    </div>
                 </div>
                 <div className='flex justify-end items-center bg-gray-400 rounded-lg overflow-hidden'>
                     <div>

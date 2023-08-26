@@ -10,6 +10,7 @@ import SinglePlace from "./pages/SinglePlace";
 import BookingsPage from "./pages/BookingsPage";
 import BookingPage from "./pages/BookingPage";
 import ProtectedLayouts from "./layouts/ProtectedLayouts";
+import SuccessPage from "./components/success/SuccessPage";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
           {
             path: "bookings/:id",
             element: <BookingPage />,
+          },
+          {
+            path: "payment/success",
+            element: <SuccessPage />,
           },
         ],
       },

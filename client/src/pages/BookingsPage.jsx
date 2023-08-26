@@ -2,12 +2,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import AccountNav from '../components/AccountNav'
 import axios from 'axios'
 import { UserContext } from '../context/AuthProvider';
-import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays, differenceInDays } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function BookingsPage() {
     const { state } = useContext(UserContext);
     const [bookings, setBookings] = useState([]);
+
+    useEffect(() => {
+        if (bookings) {
+            for (let i = 0; i < bookings.length; i++) {
+                const placeId = bookings[i].place._id;
+                if (differenceInDays(new Date(bookings[i].checkOut), new Date()) < 0) {
+                    handleDelete(placeId, "Your booking has been expired!")
+                }
+            }
+        }
+
+    }, [bookings]);
 
     useEffect(() => {
         axios.get('http://localhost:4000/api/place/bookings/' + state.user._id).then((response) => {
@@ -16,6 +29,22 @@ function BookingsPage() {
             // console.log(data)
         });
     }, [state.user._id]);
+
+    const handleDelete = async (id, message) => {
+        try {
+            // deleting the bookings
+            await axios.delete(`http://localhost:4000/api/place/bookings/${id}`);
+
+            // setting the booking to false: i.e open for booking
+            await axios.get(`http://localhost:4000/api/place/non-booked/${id}`);
+
+            toast.error(message)
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
+
+
     return (
         <div>
             <AccountNav />

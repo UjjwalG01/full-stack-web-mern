@@ -73,11 +73,6 @@ exports.getBookings = async (req, res) => {
   }
 };
 
-exports.userData = (req, res) => {
-  const { token } = req.cookies;
-  console.log("user2" + token);
-};
-
 exports.delete = async (req, res) => {
   try {
     const deletedBooking = await Booking.deleteOne({

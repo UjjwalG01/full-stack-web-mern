@@ -12,7 +12,13 @@ const auth = require("./app/middleware/authMiddleware");
 
 connect();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(fileUpload());
 app.use(cookieParser());
 app.use(express.json());
@@ -24,6 +30,8 @@ app.use("/api/user", require("./app/routes/routes.user"));
 app.use("/api/admin", require("./app/routes/route.admin"));
 app.use("/api/place", require("./app/routes/routes.place"));
 app.use("/api/place/bookings", require("./app/routes/route.booking"));
+// Payment Routes
+app.use("/api/payment", require("./app/routes/route.payment"));
 
 app.listen(port, () => {
   console.log("Server listening at " + port);

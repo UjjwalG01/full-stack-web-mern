@@ -9,8 +9,6 @@ router.get("/:id", myBookings.getBookings);
 
 router.post("/", myBookings.book);
 
-router.get("/user", myBookings.userData);
-
 router.delete("/:id", myBookings.delete);
 
 module.exports = router;
