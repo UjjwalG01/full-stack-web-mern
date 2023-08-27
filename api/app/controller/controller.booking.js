@@ -11,6 +11,7 @@ exports.book = async (req, res) => {
       name,
       phone,
       price,
+      payment,
     } = req.body;
 
     const booking = await Booking.create({
@@ -22,6 +23,7 @@ exports.book = async (req, res) => {
       name,
       phone,
       price,
+      payment,
     });
     await booking.save();
     res.status(200).json({

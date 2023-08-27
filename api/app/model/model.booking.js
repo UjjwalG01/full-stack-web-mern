@@ -33,6 +33,10 @@ const bookingSchema = new mongoose.Schema({
   numberOfGuests: {
     type: Number,
   },
+  payment: {
+    type: String,
+    enum: ["verified", "unverified"],
+  },
 });
 
 module.exports = mongoose.model("Booking", bookingSchema);

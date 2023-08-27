@@ -56,6 +56,7 @@ function BookingWidget({ place }) {
                     place: place._id,
                     user: state.user._id,
                     price: (numberOfNights * place.price),
+                    payment: "unverified",
                 });
                 const { data } = response.data;
                 const bookingId = data?._id;

@@ -61,7 +61,7 @@ function Home() {
                 {places.length > 0 ?
                     <div className="px-6 pb-8 mx-5">
                         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3">
-                            {places.length > 0 && places
+                            {places.length > 0 ? places
                                 .filter((item => {
                                     return searchText.toLowerCase() === '' ? item : item.title.toLowerCase().includes(searchText) || item.address.toLowerCase().includes(searchText)
                                 }))
@@ -79,7 +79,9 @@ function Home() {
                                             <h2 className="w-full h-2 mt-2 text-lg"><span className='font-bold'>${place.price}</span> per night</h2>
                                         </Link>
                                     </Badge>
-                                ))}
+                                )) : (<div>
+                                    <h2 className='text-4xl text-center my-80 font-bold'>No Places Available!</h2>
+                                </div>)}
                         </div>
                         <div className='text-center text-4xl font-bold my-6'>Explore Exciting Places!</div>
                         <div className='w-full text-center'>
