@@ -58,23 +58,28 @@ function BookingPage() {
     }
 
     const handlePayment = async (booking) => {
-        const payload = {
-            return_url: "http://localhost:3000/account/payment/success",
-            website_url: "http://localhost:3000",
-            amount: parseInt(booking.price) * 100,
-            purchase_order_id: booking._id,
-            purchase_order_name: booking.place.title,
-            customer_info: {
-                name: booking.name,
-                // email: "example@gmail.com",
-                phone: booking.phone
-            },
-        }
-        const response = await axios.post(`http://localhost:4000/api/payment/khalti-pay`, payload);
-        console.log(response);
+        try {
+            const payload = {
+                return_url: "http://localhost:3000/account/payment/success",
+                website_url: "http://localhost:3000",
+                amount: parseInt(booking.price) * 100,
+                purchase_order_id: booking._id,
+                purchase_order_name: booking.place.title,
+                customer_info: {
+                    name: booking.name,
+                    // email: "example@gmail.com",
+                    phone: booking.phone
+                },
+            }
+            const response = await axios.post(`http://localhost:4000/api/payment/khalti-pay`, payload);
+            console.log(response);
 
-        if (response) {
-            window.location.href = `${response?.data?.data?.payment_url}`
+            if (response) {
+                window.location.href = `${response?.data?.data?.payment_url}`
+                toast.success("Payment Successful!")
+            }
+        } catch (err) {
+            toast.error(err.message)
         }
     }
 
@@ -125,7 +130,7 @@ function BookingPage() {
                             </div>
                         </div>
                         <div className='mx-4 text-white bg-primary p-4 rounded-2xl'>
-                            <h3 className='font-semibold text-xl'>Total Price</h3>
+                            <h3 className='font-semibold flex justify-center text-xl'>Total Price</h3>
                             <h2 className='flex justify-center text-4xl font-semibold'>${booking.price}</h2>
                         </div>
                     </div>
@@ -147,7 +152,11 @@ function BookingPage() {
                         <div>{differenceInDays(new Date(booking.checkOut), new Date()) >= 0 ? (
                             <div>
                                 {show === true && (
-                                    <h2 className='text-xl font-semibold my-4'>Your booking expires in {(differenceInDays(new Date(booking.checkOut), new Date()) + 1)} {differenceInDays(new Date(booking.checkOut), new Date()) < 1 ? 'day' : 'days'}.</h2>
+                                    <div className='text-xl font-semibold my-3'>
+                                        Your booking expires in {(differenceInDays(new Date(booking.checkOut), new Date()) + 1)} {differenceInDays(new Date(booking.checkOut), new Date()) < 1 ? 'day' : 'days'}.
+                                        <br />
+                                        <h2 className='mt-3'>Payment Status: <span className='bg-gray-600 px-3 py-2 text-lg rounded-lg text-white'>Unverified</span></h2>
+                                    </div>
                                 )}
                             </div>
                         ) : (
@@ -158,9 +167,9 @@ function BookingPage() {
                             </div>
                         )}</div>
                     </div>
-                    <div className='bg-white w-[40rem] px-4 py-8 rounded-lg'>
+                    <div className='bg-white w-[40rem] px-10 py-8 rounded-lg'>
                         <h2 className='text-2xl font-bold my-3'>Make Payment</h2>
-                        <div className='flex gap-5 items-center w-full mt-4 mb-6'>
+                        <div className='flex gap-5 items-center w-full mt-6 mb-8'>
                             {/* Khalti Integration */}
                             <button onClick={() => handlePayment(booking)}>
                                 <img className='h-14' src="/khalti.jpg" alt="" />

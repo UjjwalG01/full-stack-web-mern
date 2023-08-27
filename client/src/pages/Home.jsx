@@ -4,6 +4,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import Carousel from '../components/Carousel';
 import { Badge } from '@mui/material'
 import { toast } from 'react-toastify';
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 function Home() {
     const [places, setPlaces] = useState([]);
@@ -17,6 +19,7 @@ function Home() {
         const search = searchParams.get('q') ? `?q=${searchParams.get('q')}` : '';
         try {
             const response = await axios.get(`http://localhost:4000/api/place${search}`);
+            // const response = await axios.get(`${process.env.SERVER_URL}/place${search}`);
             const { data } = await response.data;
             setPlaces(data);
             // console.log(data);
@@ -40,23 +43,18 @@ function Home() {
             <section className="h-50 pt-3">
                 <div className="px-10 mx-auto">
                     <form role='search' className='flex mt-2' onSubmit={handleSearch}>
-                        <input onChange={(e) => setSearchText(e.target.value)} className="w-1/2 mx-auto h-12 px-3 rounded-3xl mb-4 focus:outline-primary focus:shadow-outline text-xl shadow-lg" type="search" placeholder="Search..." />
+                        <input onChange={(e) => setSearchText(e.target.value)} className="w-1/2 mx-auto h-12 px-3 rounded-3xl mb-4 border-primary border-2 text-xl shadow-lg" type="search" placeholder="Search..." />
                     </form>
                     <nav className="flex justify-center overflow-x-hidden ">
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Cardamom</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Cardamom</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Cardamom</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Cinnamon</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Chamomille</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Chamomille</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Chamomille</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Apple</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Mint</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Mint</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Mint</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Curry</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Fragrance</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Amchoor</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Room</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Apartment</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Double Bed Single Room</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Family Stay Room</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Dual Room</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms in Kathmandu</Link>
+                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">3 BHK Apartment</Link>
                     </nav>
                 </div>
 
