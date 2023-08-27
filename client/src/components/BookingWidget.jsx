@@ -72,6 +72,7 @@ function BookingWidget({ place }) {
             <div className='text-xl font-semibold text-center'>
                 Price: ${place.price} / per night
             </div>
+            <h2 className='font-semibold text-gray-500 italic text-sm -mb-3 mt-3'>Select the dates to fill the info.</h2>
             <div className="border rounded-lg mt-4">
                 <div className="flex">
                     <div className='px-4 py-3 rounded w-1/2'>

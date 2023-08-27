@@ -5,8 +5,8 @@ import { UserContext } from '../context/AuthProvider';
 const Navbar = () => {
     const { state } = useContext(UserContext);
     return (
-        <header className=" flex justify-between bg-slate-200 px-6 py-8">
-            <Link to={'/'} className="flex items-center gap-2 border  bg-primary px-4 py-1 rounded-full">
+        <header className=" flex justify-between bg-slate-400 px-6 py-8">
+            <Link to={'/'} className="flex items-center gap-2 border-b cursor-pointer px-4 rounded-lg pb-1 shadow-md shadow-gray-300">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -22,13 +22,13 @@ const Navbar = () => {
                     />
                 </svg>
                 {/* <img className="w-12 object-cover rounded-full" src="/images/logo8.png" alt="" /> */}
-                <span className="font-bold text-3xl text-white font-mono pt-1">GRIHA</span>
+                <span className="font-bold text-3xl text-black font-mono pt-1">GRIHA</span>
             </Link>
-            <div className="flex gap-2 border border-gray-400 rounded-full py-2 px-4 shadow-md shadow-gray-300">
+            <div className="flex gap-2 border border-gray-100 rounded-full py-2 px-4 shadow-md shadow-gray-300">
                 <div>Anytime</div>
-                <div className="border-l border-gray-400"></div>
+                <div className="border-l border-gray-100"></div>
                 <div>Anywhere</div>
-                <div className="border-l border-gray-400"></div>
+                <div className="border-l border-gray-100"></div>
                 <div>Everyone</div>
                 <button className="bg-primary text-white p-1 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -37,13 +37,13 @@ const Navbar = () => {
 
                 </button>
             </div>
-            <Link to={state.user.name ? '/account/profile' : '/login'} className="flex items-center gap-2 border border-primary hover:bg-my_color hover:text-white hover:animate-pulse rounded-full py-2 px-4 ">
+            <Link to={state.user.name ? '/account/profile' : '/login'} className="flex items-center gap-2 border border-primary shadow-md shadow-gray-300 hover:bg-my_color hover:text-white rounded-full py-2 px-4 ">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
-                    stroke="currentColor"
+                    stroke="white"
                     className="w-5 h-6"
                 >
                     <path
@@ -56,7 +56,7 @@ const Navbar = () => {
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
-                        fill="currentColor"
+                        fill="white"
                         className="w-6 h-6 "
                     >
                         <path

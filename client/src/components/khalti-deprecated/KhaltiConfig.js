@@ -1,5 +1,6 @@
 import axios from "axios";
 import myKey from "./KhaltiKey";
+import { toast } from "react-toastify";
 
 let config = {
   // replace this key with yours
@@ -30,7 +31,7 @@ let config = {
         .catch((error) => {
           console.log(error);
         });
-      alert("Payment Successful");
+      toast.success("Payment Successful");
     },
     // onError handler is optional
     onError(error) {

@@ -61,6 +61,7 @@ exports.show = async (req, res) => {
 exports.createPlace = async (req, res) => {
   try {
     const {
+      owner,
       title,
       address,
       description,
@@ -95,6 +96,7 @@ exports.createPlace = async (req, res) => {
     }
 
     const newPlace = await Place.create({
+      owner,
       title,
       address,
       description,

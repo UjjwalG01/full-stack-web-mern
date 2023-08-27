@@ -50,7 +50,7 @@ function Accomodations() {
                                 <img className='object-cover' src={'http://127.0.0.1:4000' + place.photo?.[0]} alt="" />
                             )}
                         </Link>
-                        <div className='flex items-center'>
+                        <div className='flex items-center w-full'>
                             <div className='w-11/12 border-r pr-3'>
                                 <h2 className='text-xl flex gap-4'>
                                     {place.title}
