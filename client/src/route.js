@@ -11,6 +11,7 @@ import BookingsPage from "./pages/BookingsPage";
 import BookingPage from "./pages/BookingPage";
 import ProtectedLayouts from "./layouts/ProtectedLayouts";
 import SuccessPage from "./components/success/SuccessPage";
+import Error from "./components/Error";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: "/error",
+        element: <Error />,
+      },
+      {
         path: "/account",
         element: <ProtectedLayouts />,
         children: [
@@ -52,10 +57,6 @@ const router = createBrowserRouter([
             path: "accomodations/:id",
             element: <PlacesFormPage />,
           },
-          // {
-          //   path: "place/:id",
-          //   element: <SinglePlace />,
-          // },
           {
             path: "bookings",
             element: <BookingsPage />,

@@ -23,6 +23,11 @@ const reducer = (state, action) => {
                 access_token: "",
                 user: {}
             }
+        case 'UPDATE':
+            localStorage.setItem("user", JSON.stringify(action.payload.user));
+            return {
+                user: action.payload.user
+            }
         default:
             return state
     }

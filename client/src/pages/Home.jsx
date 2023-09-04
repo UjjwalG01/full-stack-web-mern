@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import Carousel from '../components/Carousel';
 import { Badge } from '@mui/material'
 import { toast } from 'react-toastify';
+import Error from '../components/Error';
 // import dotenv from 'dotenv';
 // dotenv.config();
 
@@ -41,22 +42,24 @@ function Home() {
     return (
         <div className=''>
             <section className="h-50 pt-3">
-                <div className="px-10 mx-auto">
-                    <form role='search' className='flex mt-2' onSubmit={handleSearch}>
-                        <input onChange={(e) => setSearchText(e.target.value)} className="w-1/2 mx-auto h-12 px-3 rounded-3xl mb-4 border-primary border-2 text-xl shadow-lg" type="search" placeholder="Search..." />
-                    </form>
-                    <nav className="flex justify-center overflow-x-hidden ">
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Room</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Apartment</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Double Bed Single Room</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Family Stay Room</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Dual Room</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms in Kathmandu</Link>
-                        <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">3 BHK Apartment</Link>
-                    </nav>
-                </div>
+                {places.length < 0 &&
+                    <div className="px-10 mx-auto">
+                        <form role='search' className='flex mt-2' onSubmit={handleSearch}>
+                            <input onChange={(e) => setSearchText(e.target.value)} className="w-1/2 mx-auto h-12 px-3 rounded-3xl mb-4 border-primary border-2 text-xl shadow-lg" type="search" placeholder="Search..." />
+                        </form>
+                        <nav className="flex justify-center overflow-x-hidden ">
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Room</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Single Apartment</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Double Bed Single Room</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Family Stay Room</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Dual Room</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms below $20</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">Rooms in Kathmandu</Link>
+                            <Link className="no-underline text-white bg-slate-400 rounded-full py-2 px-4 font-medium mr-4" href="/">3 BHK Apartment</Link>
+                        </nav>
+                    </div>
+                }
 
                 {places.length > 0 ?
                     <div className="px-6 pb-8 mx-5">
@@ -88,7 +91,8 @@ function Home() {
                             <Carousel places={places} />
                         </div>
                     </div>
-                    : (<h2 className='text-4xl text-center my-80 font-bold'>Oops! Server is not responding.</h2>)}
+                    // : (<h2 className='text-4xl text-center my-80 font-bold'>Oops! Server is not responding.</h2>)}
+                    : (<Error />)}
             </section>
 
         </div>

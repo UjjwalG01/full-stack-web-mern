@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import UpdateProfile from './UpdateProfile';
 
 function Profile() {
+    const [showDialog, setShowDialog] = useState(false);
     const { state, dispatch } = useContext(UserContext);
     const navigate = useNavigate();
+
     return (
         <div className='grid grid-cols-2 m-8'>
+
+            {showDialog && (<UpdateProfile showDialog={showDialog} setShowDialog={setShowDialog} />)}
+
             <div className='flex border border-gray-800 rounded-xl bg-white w-96 p-8 justify-end'>
                 <div>
                     <h2 className='font-bold text-xl my-3'>Username: </h2>
@@ -23,7 +29,10 @@ function Profile() {
             <div className='justify-center border-l-4 ml-5 pl-10'>
                 <h2 className='my-5 text-xl font-semibold'>User Actions</h2>
                 <div className='flex gap-3'>
-                    <button className='btn bg-blue-700 px-6 py-2 text-white text-lg font-bold rounded-full'>Update</button>
+                    <button onClick={() => {
+                        setShowDialog(true);
+                    }} data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" className='btn bg-blue-700 px-6 py-2 text-white text-lg font-bold rounded-full'>Update</button>
+
                     <button onClick={() => {
                         dispatch({ type: 'LOGOUT' });
                         toast.error("Logged out successfully");

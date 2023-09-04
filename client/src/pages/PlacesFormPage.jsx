@@ -108,7 +108,7 @@ function PlacesFormPage() {
                 <InputLabel label="Description" small="A detailed description about your place" />
                 <textarea name="description" value={data.description} onChange={handleChange} placeholder='Enter description' id="description" rows="7"></textarea>
 
-                <InputLabel label="Price" small="Price in NPR" />
+                <InputLabel label="Price" small="Price (in NPR)" />
                 <input required type="text" name='price' value={data.price} onChange={handleChange} placeholder='Enter Price' />
 
                 <InputLabel label="Photos" small="Add attractive pictures of the place." />

@@ -107,21 +107,36 @@ exports.logout = async (req, res) => {
 
 exports.profile = async (req, res) => {
   try {
-    const { token } = req.cookies;
-    jwt.verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET,
-      {},
-      async (err, decoded) => {
-        if (err) res.status(400).json({ message: "Invalid Token" });
-        const { _id, name, email, role } = await User.findById(decoded.sub);
-        res.json({ _id, name, email, role });
-      }
+    const { _id, name, email, role, password } = await User.findById(
+      req.params.id
     );
+    res.json({ _id, name, email, role, password });
   } catch (err) {
     res.status(404).json({
       status: "error",
       data: err.message,
+    });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const user = await User.findOne({ email });
+    user.name = name;
+    user.email = email;
+    console.log(user);
+
+    user.save();
+
+    res.status(201).json({
+      status: "success",
+      data: user,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "error",
+      message: err.message,
     });
   }
 };

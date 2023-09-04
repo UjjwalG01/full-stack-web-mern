@@ -10,6 +10,8 @@ router.post("/login", userRoutes.login);
 
 router.delete("/:id", userRoutes.logout);
 
-router.get("/profile", userRoutes.profile);
+router.get("/profile/:id", userRoutes.profile);
+
+router.put("/update", userRoutes.update);
 
 module.exports = router;
