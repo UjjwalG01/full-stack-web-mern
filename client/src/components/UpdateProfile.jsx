@@ -38,7 +38,7 @@ function UpdateProfile({ showDialog, setShowDialog }) {
 
     return (
         <div className='fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-75 transition-opacity duration-300'>
-            <div className='bg-white w-[600px] text-center h-[370px] mt-[250px] rounded-lg justify-center p-8 mx-auto'>
+            <div className='bg-white w-[600px] text-center h-[400px] mt-[250px] rounded-lg justify-center p-8 mx-auto'>
                 <h1 className='text-2xl font-semibold my-4'>Update Profile</h1>
                 <form className="max-w-md mx-auto" onSubmit={updateProfile}>
                     <input

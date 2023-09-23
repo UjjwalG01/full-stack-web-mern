@@ -1,5 +1,7 @@
 const uuid = require("uuid").v4;
 const Place = require("../model/model.place");
+const multer = require("multer");
+const path = require("path");
 
 exports.index = async (req, res) => {
   try {
@@ -58,6 +60,37 @@ exports.show = async (req, res) => {
   }
 };
 
+exports.uploadImage = async (req, res) => {
+  try {
+    const images = req.files.images;
+    let imgArray = [];
+    if (images.length > 0) {
+      for (const img of images) {
+        const path = `/uploads/img${uuid()}.jpg`;
+        imgArray.push(path);
+      }
+      await Promise.all(
+        images.map(async (image, index) => {
+          image.mv(`public${imgArray[index]}`);
+        })
+      );
+    } else {
+      const path = `/uploads/img${uuid()}.jpg`;
+      imgArray.push(path);
+      images.mv(`public${path}`);
+    }
+    res.status(200).json({
+      status: "success",
+      data: imgArray,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
+
 exports.createPlace = async (req, res) => {
   try {
     const {
@@ -70,30 +103,11 @@ exports.createPlace = async (req, res) => {
       checkIn,
       checkOut,
       maxGuests,
-      perks,
       booked,
+      category,
+      images,
+      perks,
     } = req.body;
-    const photos = req.files?.photo;
-    // console.log(req.files);
-
-    let images = [];
-    if (photos.length > 0) {
-      for (const photo of photos) {
-        // const ext = await photo.name.split(".")[1];
-        const path = `/uploads/img${uuid()}.jpg}`;
-        images.push(path);
-      }
-      await Promise.all(
-        photos.map(async (photo, index) => {
-          photo.mv(`public${images[index]}`);
-        })
-      );
-    } else {
-      // const ext = await photos.name.split(".")[1];
-      const path = `/uploads/img${uuid()}.jpg`;
-      images.push(path);
-      photos.mv(`public/${path}`);
-    }
 
     const newPlace = await Place.create({
       owner,
@@ -104,16 +118,14 @@ exports.createPlace = async (req, res) => {
       extraInfo,
       checkIn,
       checkOut,
-      photo: images,
       maxGuests,
-      perks,
       booked,
+      category,
+      photo: images,
+      perks,
     });
-
-    // console.log(newPlace);
-
     await newPlace.save();
-    res.status(200).json({
+    res.status(201).json({
       status: "success",
       data: newPlace,
     });
@@ -127,12 +139,45 @@ exports.createPlace = async (req, res) => {
 
 exports.updatePlace = async (req, res) => {
   try {
-    const newData = await Place.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+    // const found = await Place.findById(req.params.id);
+    // console.log(found);
+    // console.log(req.body.owner);
+    const {
+      owner,
+      title,
+      address,
+      description,
+      price,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+      booked,
+      category,
+      images,
+      perks,
+    } = req.body;
+
+    const place = await Place.findByIdAndUpdate(req.params.id, {
+      owner,
+      title,
+      address,
+      description,
+      price,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+      booked,
+      category,
+      photo: images,
+      perks,
     });
+    await place.save();
+
     res.status(200).json({
       status: "success",
-      data: newData,
+      data: place,
     });
   } catch (err) {
     res.status(400).json({

@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
   if (!email || !password)
     return res.status(400).json({
       status: "error",
-      data: "Email or Password are required",
+      message: "Email or Password are required",
     });
 
   try {
@@ -59,11 +59,13 @@ exports.login = async (req, res) => {
 
     const match = await bcrypt.compare(password, user.password);
 
-    if (!match)
+    if (!match) {
       res.status(400).json({
         status: "error",
-        data: "Invalid Password",
+        message: "Invalid Password",
       });
+      return;
+    }
 
     const payload = {
       sub: user._id,
@@ -89,7 +91,7 @@ exports.login = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "error",
-      data: err.stack,
+      message: err.message,
     });
   }
 };

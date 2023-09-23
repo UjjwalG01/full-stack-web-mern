@@ -7,6 +7,7 @@ import PlaceGallery from '../components/PlaceGallery';
 import { differenceInCalendarDays, differenceInDays } from 'date-fns';
 import { toast } from 'react-toastify';
 import Modal from '../components/Modal';
+import { Box, Rating, Typography } from '@mui/material';
 // require('dotenv').config();
 
 function BookingPage() {
@@ -23,8 +24,10 @@ function BookingPage() {
     });
     const [bookingId, setBookingId] = useState(null);
     const [confirm, setConfirm] = useState(null);
-
     const [booking, setBooking] = useState(null);
+    const [payment, setPayment] = useState(false);
+
+    const [value, setValue] = React.useState(2);
 
     useEffect(() => {
         if (id) {
@@ -76,7 +79,9 @@ function BookingPage() {
 
             if (response) {
                 window.location.href = `${response?.data?.data?.payment_url}`
-                toast.success("Payment Successful!")
+                // toast.success("Payment Successful!");
+                setPayment(true);
+
             }
         } catch (err) {
             toast.error(err.message)
@@ -101,15 +106,15 @@ function BookingPage() {
 
     return (
         <div className='my-8 mx-4'>
-            <h1 className='text-2xl'>{booking.place.title}</h1>
+            <h1 className='text-2xl font-semibold'>{booking.place.title}</h1>
             {modal.isLoading && (<Modal modal={modal} setModal={setModal} setConfirm={setConfirm} />)}
             <div className='mx-2'>
                 <AddressLink place={booking.place} />
-                <div className='bg-gray-200 p-4 mb-4 rounded-2xl' >
+                <div className='bg-gray-300 p-4 mb-4 rounded-2xl' >
                     <h2 className='text-xl font-semibold'>Your booking information</h2>
                     <div className='flex justify-between items-center'>
                         <div>
-                            <div className='flex gap-2 mt-2 py-2 border-t text-sm border-gray-300 font-semibold'>
+                            <div className='flex gap-2 -mt-3 py-2 border-t text-sm border-gray-500 font-semibold'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                                 </svg>
@@ -146,16 +151,40 @@ function BookingPage() {
                         {booking.place.extraInfo}
                     </div>
                 </div>
-                <div className='flex justify-between items-center my-6 p-4 bg-gray-300 rounded-lg overflow-hidden'>
-                    <div>
-                        <button onClick={() => setShow(true)} className='bg-red-500 text-white px-3 py-2 my-3 rounded-lg font-semibold'>Check Status</button>
+                <div className='flex justify-between my-6 pl-6 p-4 bg-gray-300 rounded-lg overflow-hidden'>
+                    <div className='bg-white px-6 py-3 my-2 w-[420px] rounded-lg'>
+                        {/* Rating Here */}
+                        <div className='mt-2'>
+                            <h2 className=' font-semibold text-xl'>Rate this Place</h2>
+                            <Box
+                                sx={{
+                                    '& > legend': { mt: 2 },
+                                }}
+                            >
+                                <Rating
+                                    name="size-large"
+                                    size='large'
+                                    value={value}
+                                    onChange={(event, newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                />
+                            </Box>
+                        </div>
+
+                        <button onClick={() => setShow(!show)} className='bg-red-600 text-white px-3 py-2 my-3 text-xl rounded-lg font-semibold'>Check Status</button>
                         <div>{differenceInDays(new Date(booking.checkOut), new Date()) >= 0 ? (
                             <div>
                                 {show === true && (
                                     <div className='text-xl font-semibold my-3'>
                                         Your booking expires in {(differenceInDays(new Date(booking.checkOut), new Date()) + 1)} {differenceInDays(new Date(booking.checkOut), new Date()) < 1 ? 'day' : 'days'}.
                                         <br />
-                                        <h2 className='mt-3'>Payment Status: <span className='bg-gray-600 px-3 py-2 text-lg rounded-lg text-white'>Unverified</span></h2>
+                                        <h2 className='mt-3 flex items-center gap-2'>Payment Status:
+                                            {payment === true ?
+                                                <span className='bg-green-600 px-3 py-1 text-lg rounded-lg text-white'>Verified</span>
+                                                : <span className='bg-gray-600 px-3 py-1 text-lg rounded-lg text-white'>Unverified</span>
+                                            }
+                                        </h2>
                                     </div>
                                 )}
                             </div>
@@ -167,19 +196,19 @@ function BookingPage() {
                             </div>
                         )}</div>
                     </div>
-                    <div className='bg-white w-[40rem] px-10 py-8 rounded-lg'>
-                        <h2 className='text-2xl font-bold my-3'>Make Payment</h2>
+                    <div className='bg-white w-[42rem] px-10 my-2 py-8 rounded-lg'>
+                        <h2 className='text-2xl font-bold my-3'>Make Payment through</h2>
                         <div className='flex gap-5 items-center w-full mt-6 mb-8'>
                             {/* Khalti Integration */}
                             <button onClick={() => handlePayment(booking)}>
-                                <img className='h-14' src="/khalti.jpg" alt="" />
+                                <img className='h-16' src="/khalti.jpg" alt="" />
                             </button>
                             <Link>
-                                <img className='h-14 ml-3' src="/esewa.png" alt="" />
+                                <img className='h-16 ml-3' src="/esewa.png" alt="" />
                             </Link>
                         </div>
-                        <button onClick={() => setShowQR(!showQR)} className='primary mt-4 mb-5 text-lg font-semibold'>Also, Use QR Code</button>
-                        {showQR && <img className='h-44 mx-auto -my-6' src="/qr.png" alt="" />}
+                        {showQR && <img className='h-44 mx-auto my-6' src="/qr.png" alt="" />}
+                        <button onClick={() => setShowQR(!showQR)} className='primary mt-6 mb-5 text-lg font-semibold'>Also, Use QR Code</button>
                     </div>
                 </div>
                 <div className='flex justify-end items-center bg-gray-400 rounded-lg overflow-hidden'>

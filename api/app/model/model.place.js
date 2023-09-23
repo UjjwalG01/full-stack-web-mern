@@ -41,6 +41,11 @@ const placeSchema = new mongoose.Schema({
   booked: {
     type: Boolean,
   },
+  category: {
+    type: String,
+    required: [true, "Category is required"],
+    enum: ["normal", "premium"],
+  },
 });
 
 module.exports = mongoose.model("Place", placeSchema);

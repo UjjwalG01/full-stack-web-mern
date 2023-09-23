@@ -2,11 +2,24 @@ const router = require("express").Router();
 
 const allPlaces = require("../controller/controller.place");
 
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     console.log(file);
+//     cb(null, "new" + Date.now() + path.extname(file.originalname));
+//   },
+// });
+// const uploads = multer({ dest: storage });
+
 router.get("/", allPlaces.index);
 
 router.get("/single-place/:id", allPlaces.place);
 
 router.get("/user-place/:id", allPlaces.show);
+
+router.post("/upload", allPlaces.uploadImage);
 
 router.post("/create", allPlaces.createPlace);
 

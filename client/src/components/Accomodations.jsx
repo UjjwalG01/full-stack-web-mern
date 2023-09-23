@@ -47,7 +47,7 @@ function Accomodations() {
                     <div key={place._id} className='flex gap-4 bg-gray-100 p-4 rounded-2xl'>
                         <Link to={`/account/accomodations/${place._id}`} className='flex cursor-pointer w-32 h-32 bg-gray-200 shrink-0'>
                             {place.photo.length > 0 && (
-                                <img className='object-cover' src={'http://127.0.0.1:4000' + place.photo?.[0]} alt="" />
+                                <img className='object-cover cursor-pointer' src={'http://127.0.0.1:4000' + place.photo?.[0]} alt="" />
                             )}
                         </Link>
                         <div className='flex items-center w-full'>

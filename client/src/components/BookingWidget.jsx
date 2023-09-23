@@ -33,6 +33,18 @@ function BookingWidget({ place }) {
                 navigate('/login');
                 return new Error("User is not logged in!");
             }
+            if (!checkIn || !checkOut || !name || !numberOfGuests) {
+                toast.info("Please enter your details");
+                return;
+            }
+            if (!phone || phone.length > 13 || phone.length < 10) {
+                toast.warn("Please enter valid phone number");
+                return;
+            }
+            if ((phone.startsWith(98) || phone.startsWith(97)) === false) {
+                toast.warn("Starts with 98 or 97");
+            }
+
             if (state.user?._id === place.owner) {
                 toast.info(`Hey!👋 You own this place!`)
                 navigate(`/account/place/${place._id}`);
@@ -41,7 +53,6 @@ function BookingWidget({ place }) {
 
             const bookedPlace = await axios.get(`http://localhost:4000/api/place/booked/${place._id}/check`);
             const { booked } = await bookedPlace.data.data;
-            console.log(booked);
             if (booked === true) {
                 toast.info(`Sorry, place is already booked!`);
                 navigate(`/account/place/${place._id}`);
@@ -109,6 +120,10 @@ function BookingWidget({ place }) {
                         <input type="tel"
                             name="phone"
                             value={phone}
+                            placeholder='98xxxxxxxx'
+                            min={10}
+                            max={13}
+                            required
                             onChange={(e) => setPhone(e.target.value)} />
                     </div>
                 )}

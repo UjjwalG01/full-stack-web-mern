@@ -1,3 +1,4 @@
+import { Avatar, Stack } from '@mui/material';
 import React from 'react';
 import { SocialIcon } from 'react-social-icons';
 
@@ -6,38 +7,39 @@ function Footer() {
         <div className='justify-center'>
             <div className='mt-8 p-8 bg-slate-800 text-white px-6 h-96 justify-center'>
                 <ul role="list" className="divide-y divide-gray-100">
-                    <li className="grid-cols-3 grid items-center gap-x-6 py-5">
-                        <div className="min-w-0 gap-x-4 w-1/3 justify-center">
-                            <div className="flex gap-1 items-center justify-center ">
+                    <li className="grid-cols-3 items-center gap-x-6 py-5 justify-around flex">
+                        <div className="min-w-0 gap-x-4 w-1/3 justify-center h-[280px] py-4">
+                            <div className="flex gap-1 items-center justify-center">
                                 <h2 className='font-semibold text-lg mb-4'>Our Social Links</h2>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                                 </svg>
                             </div>
-                            <div className="min-w-0 flex-auto mt-2">
-                                <SocialIcon url='https://www.facebook.com/login' />
-                                <SocialIcon url='https://www.twitter.com/login' />
-                                <SocialIcon url='https://www.linkedin.com/login' />
-                                <SocialIcon url='https://www.instagram.com/login' />
+                            <div className="min-w-0 flex mt-2 justify-center">
+                                <SocialIcon target='_blank' url='https://www.facebook.com/login' />
+                                <SocialIcon target='_blank' url='https://www.twitter.com/login' />
+                                <SocialIcon target='_blank' url='https://www.linkedin.com/login' />
+                                <SocialIcon target='_blank' url='https://www.instagram.com/accounts/login/' />
                             </div>
                         </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-center w-1/3">
+                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-center w-1/3 h-[280px] py-4">
                             <p className="text-xl font-semibold mb-2 leading-6 text-gray-100">Quick Shortcuts</p>
                             <p className="text-md leading-6 text-gray-100">View Places</p>
                             <p className="text-md leading-6 text-gray-100">View Categories</p>
                             <p className="text-md leading-6 text-gray-100">View Current trends</p>
                         </div>
-                        <div className='w-1/3'>
-                            <p className="text-xl font-semibold mb-4 leading-6 text-gray-100">Our Members</p>
-                            <div className="flex -space-x-1 overflow-hidden">
-                                <img className="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                <img className="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                <img className="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="" />
-                                <img className="inline-block h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                        <div className='w-1/3 flex justify-center h-[280px] py-4'>
+                            <div>
+                                <p className="text-xl font-semibold mb-4 leading-6 justify-center flex text-gray-100">Our Members</p>
+                                <Stack direction="row" spacing={1}>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                    <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                                    <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+                                </Stack>
                             </div>
                         </div>
                     </li>
-
                 </ul>
             </div>
             <hr />
