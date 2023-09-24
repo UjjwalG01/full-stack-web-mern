@@ -11,11 +11,11 @@ function PlaceGallery({ place }) {
                 </div>
                 <div className='grid'>
                     {place.photo?.[0] && (
-                        <img className='aspect-square object-cover' src={`http://localhost:4000/${place.photo[0]}`} alt="" />
+                        <img className='aspect-square object-cover' src={`http://localhost:4000/${place.photo[1]}`} alt="" />
                     )}
                     <div className='overflow-hidden'>
                         {place.photo?.[0] && (
-                            <img className='aspect-square object-cover relative top-2' src={`http://localhost:4000/${place.photo[0]}`} alt="" />
+                            <img className='aspect-square object-cover relative top-2' src={`http://localhost:4000/${place.photo[2]}`} alt="" />
                         )}
                     </div>
                 </div>

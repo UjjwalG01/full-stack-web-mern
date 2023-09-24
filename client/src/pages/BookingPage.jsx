@@ -25,9 +25,10 @@ function BookingPage() {
     const [bookingId, setBookingId] = useState(null);
     const [confirm, setConfirm] = useState(null);
     const [booking, setBooking] = useState(null);
-    const [payment, setPayment] = useState(false);
 
-    const [value, setValue] = React.useState(2);
+    // Has not sent to server yet
+    const [payment, setPayment] = useState(false);
+    const [value, setValue] = React.useState(3);
 
     useEffect(() => {
         if (id) {
@@ -103,6 +104,13 @@ function BookingPage() {
             navigate("/account/bookings")
         }
     };
+    const handleRating = () => {
+        let message = document.getElementById('rating');
+        message.style.display = 'block';
+        setTimeout(() => {
+            message.style.display = 'none';
+        }, 5000)
+    }
 
     return (
         <div className='my-8 mx-4'>
@@ -156,7 +164,8 @@ function BookingPage() {
                         {/* Rating Here */}
                         <div className='mt-2'>
                             <h2 className=' font-semibold text-xl'>Rate this Place</h2>
-                            <Box
+                            <Box className='flex gap-3 items-center'
+
                                 sx={{
                                     '& > legend': { mt: 2 },
                                 }}
@@ -168,7 +177,9 @@ function BookingPage() {
                                     onChange={(event, newValue) => {
                                         setValue(newValue);
                                     }}
+                                    onClick={handleRating}
                                 />
+                                <p id='rating' className='text-primary font-semibold hidden'>Thanks for rating this place!</p>
                             </Box>
                         </div>
 

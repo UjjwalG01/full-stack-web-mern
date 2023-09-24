@@ -97,13 +97,12 @@ function PlacesFormPage() {
             console.log(err);
         }
     }
+    if (redirect) {
+        return <Navigate to={'/account/accomodations'} />
+    }
 
     const removePhoto = (filename) => {
         setImages([...images.filter(photo => photo !== filename)]);
-    }
-
-    if (redirect) {
-        return <Navigate to={'/account/accomodations'} />
     }
 
     return (
