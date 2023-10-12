@@ -80,7 +80,7 @@ function Home() {
     const fetchPlaces = async () => {
         const search = searchParams.get('q') ? `?q=${searchParams.get('q')}` : '';
         try {
-            const response = await axios.get(`http://localhost:4000/api/place${search}`);
+            const response = await axios.get(`https://bookstore-backend-bice.vercel.app/api/place${search}`);
             // const response = await axios.get(`${process.env.SERVER_URL}/place${search}`);
             const { data } = await response.data;
             setPlaces(data);
@@ -110,7 +110,7 @@ function Home() {
                     <nav className="flex justify-center overflow-x-hidden ">
                         {
                             links.map(link => (
-                                <Link onClick={link.onClick} className="no-underline text-white bg-slate-400 rounded-full py-2 pb-1 px-4 font-bold mr-4" to={'/'}>{link.label}</Link>
+                                <Link onClick={link.onClick} className={"no-underline text-white rounded-full py-2 pb-1 px-4 font-bold mr-4 bg-slate-400"} to={'/'}>{link.label}</Link>
                             ))
                         }
                     </nav>
@@ -129,7 +129,7 @@ function Home() {
                                         <Link to={`/account/place/${place._id}`} key={place._id} className="w-full ">
                                             <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600 flex">
                                                 {place.photo?.[0] && (
-                                                    <img className='rounded-lg w-full object-cover' src={'http://localhost:4000/' + place.photo?.[0]} alt="No Image Available!" />
+                                                    <img className='rounded-lg w-full object-cover' src={'https://bookstore-backend-bice.vercel.app/' + place.photo?.[0]} alt="No Image Available!" />
                                                 )}
                                             </div>
 
@@ -155,7 +155,7 @@ function Home() {
                                     <h2 className='text-4xl text-center my-80 font-bold'>No Places Available!</h2>
                                 </div>)}
                         </div>
-                        <div className='text-center text-5xl font-serif font-bold pb-4 border-b-4 my-8'>Explore Exciting Places!</div>
+                        <div className='text-center text-5xl font-serif font-bold pb-4 border-b-4 my-8 py-8'>Explore Exciting Places!</div>
                         <div className='w-full text-center'>
                             <Carousel places={places} />
                         </div>

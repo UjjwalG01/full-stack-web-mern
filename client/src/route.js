@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import axios from "axios";
 import App from "./layouts/App";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -12,6 +13,9 @@ import BookingPage from "./pages/BookingPage";
 import ProtectedLayouts from "./layouts/ProtectedLayouts";
 import SuccessPage from "./components/success/SuccessPage";
 import Error from "./components/Error";
+
+axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true;
 
 const router = createBrowserRouter([
   {

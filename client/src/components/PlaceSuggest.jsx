@@ -8,7 +8,7 @@ function PlaceSuggest({ item: place }) {
             <Link to={`/account/place/${place._id}`} key={place._id} className="w-full ">
                 <div className="w-full h-64 bg-gray-300 rounded-lg dark:bg-gray-600 flex">
                     {place.photo?.[0] && (
-                        <img className='rounded-lg w-full object-cover' src={'http://localhost:4000/' + place.photo?.[0]} alt="No Image Available!" />
+                        <img className='rounded-lg w-full object-cover' src={'https://bookstore-backend-bice.vercel.app/' + place.photo?.[0]} alt="No Image Available!" />
                     )}
                 </div>
 

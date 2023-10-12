@@ -51,25 +51,24 @@ function BookingWidget({ place }) {
                 return;
             }
 
-            const bookedPlace = await axios.get(`http://localhost:4000/api/place/booked/${place._id}/check`);
+            const bookedPlace = await axios.get(`https://bookstore-backend-bice.vercel.app/api/place/booked/${place._id}/check`);
             const { booked } = await bookedPlace.data.data;
             if (booked === true) {
                 toast.info(`Sorry, place is already booked!`);
                 navigate(`/account/place/${place._id}`);
                 return;
             } else {
-                // setting the bookings to true
-                await axios.get(`http://localhost:4000/api/place/booked/${place._id}`);
-
                 // sending the booking info to server
-                const response = await axios.post(`http://localhost:4000/api/place/bookings`, {
+                const response = await axios.post(`https://bookstore-backend-bice.vercel.app/api/place/bookings`, {
                     checkIn, checkOut, numberOfGuests, name, phone,
                     place: place._id,
                     user: state.user._id,
                     price: (numberOfNights * place.price),
                     payment: "unverified",
                 });
+                // setting the bookings to true
                 const { data } = response.data;
+                await axios.get(`https://bookstore-backend-bice.vercel.app/api/place/booked/${place._id}`);
                 const bookingId = data?._id;
                 toast.success(`Booking Successfull!`);
                 navigate(`/account/bookings/${bookingId}`);

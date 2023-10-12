@@ -23,7 +23,7 @@ function BookingsPage() {
     }, [bookings]);
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/place/bookings/' + state.user._id).then((response) => {
+        axios.get('https://bookstore-backend-bice.vercel.app/api/place/bookings/' + state.user._id).then((response) => {
             const { data } = response.data;
             setBookings(data);
             // console.log(data)
@@ -33,10 +33,10 @@ function BookingsPage() {
     const handleDelete = async (id, message) => {
         try {
             // deleting the bookings
-            await axios.delete(`http://localhost:4000/api/place/bookings/${id}`);
+            await axios.delete(`https://bookstore-backend-bice.vercel.app/api/place/bookings/${id}`);
 
             // setting the booking to false: i.e open for booking
-            await axios.get(`http://localhost:4000/api/place/non-booked/${id}`);
+            await axios.get(`https://bookstore-backend-bice.vercel.app/api/place/non-booked/${id}`);
 
             toast.error(message)
         } catch (err) {

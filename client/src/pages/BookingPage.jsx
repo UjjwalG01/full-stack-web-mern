@@ -32,7 +32,7 @@ function BookingPage() {
 
     useEffect(() => {
         if (id) {
-            axios.get('http://localhost:4000/api/place/bookings/' + state.user._id).then((response) => {
+            axios.get('https://bookstore-backend-bice.vercel.app/api/place/bookings/' + state.user._id).then((response) => {
                 const foundBooking = response.data.data.find(({ _id }) => _id === id);
                 setBooking(foundBooking);
             });
@@ -75,7 +75,7 @@ function BookingPage() {
                     phone: booking.phone
                 },
             }
-            const response = await axios.post(`http://localhost:4000/api/payment/khalti-pay`, payload);
+            const response = await axios.post(`https://bookstore-backend-bice.vercel.app/api/payment/khalti-pay`, payload);
             console.log(response);
 
             if (response) {
@@ -92,10 +92,10 @@ function BookingPage() {
     const handleDelete = async (id, message) => {
         try {
             // deleting the bookings
-            await axios.delete(`http://localhost:4000/api/place/bookings/${id}`);
+            await axios.delete(`https://bookstore-backend-bice.vercel.app/api/place/bookings/${id}`);
 
             // setting the booking to false: i.e open for booking
-            await axios.get(`http://localhost:4000/api/place/non-booked/${id}`);
+            await axios.get(`https://bookstore-backend-bice.vercel.app/api/place/non-booked/${id}`);
 
             toast.error(message)
             navigate("/account/bookings")

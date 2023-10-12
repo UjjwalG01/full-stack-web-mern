@@ -15,7 +15,7 @@ function UpdateProfile({ showDialog, setShowDialog }) {
     }, []);
 
     const fetchUser = async (id) => {
-        const response = await axios.get(`http://localhost:4000/api/user/profile/${id}`);
+        const response = await axios.get(`https://bookstore-backend-bice.vercel.app/api/user/profile/${id}`);
         const user = response?.data;
         setName(user.name);
         setEmail(user.email);
@@ -25,7 +25,7 @@ function UpdateProfile({ showDialog, setShowDialog }) {
     const updateProfile = async (e) => {
         e.preventDefault();
         const updatedUser = { name, email };
-        const response = await axios.put(`http://localhost:4000/api/user/update`, updatedUser);
+        const response = await axios.put(`https://bookstore-backend-bice.vercel.app/api/user/update`, updatedUser);
         dispatch({
             type: 'UPDATE',
             payload: {

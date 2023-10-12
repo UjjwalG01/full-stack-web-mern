@@ -6,16 +6,16 @@ function PlaceGallery({ place }) {
             <div className='grid gap-2 rounded-2xl overflow-hidden grid-cols-[2fr_1fr]'>
                 <div>
                     {place.photo?.[0] && (
-                        <img className='aspect-square object-cover w-full' src={`http://localhost:4000/${place.photo[0]}`} alt="" />
+                        <img className='aspect-square object-cover w-full' src={`https://bookstore-backend-bice.vercel.app/${place.photo[0]}`} alt="" />
                     )}
                 </div>
                 <div className='grid'>
                     {place.photo?.[0] && (
-                        <img className='aspect-square object-cover' src={`http://localhost:4000/${place.photo[1]}`} alt="" />
+                        <img className='aspect-square object-cover' src={`https://bookstore-backend-bice.vercel.app/${place.photo[1]}`} alt="" />
                     )}
                     <div className='overflow-hidden'>
                         {place.photo?.[0] && (
-                            <img className='aspect-square object-cover relative top-2' src={`http://localhost:4000/${place.photo[2]}`} alt="" />
+                            <img className='aspect-square object-cover relative top-2' src={`https://bookstore-backend-bice.vercel.app/${place.photo[2]}`} alt="" />
                         )}
                     </div>
                 </div>

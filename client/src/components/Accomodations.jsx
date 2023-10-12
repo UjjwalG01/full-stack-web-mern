@@ -14,7 +14,7 @@ function Accomodations() {
 
     const getPlaces = async () => {
         if (userId) {
-            const response = await axios.get(`http://localhost:4000/api/place/user-place/${userId}`)
+            const response = await axios.get(`https://bookstore-backend-bice.vercel.app/api/place/user-place/${userId}`)
             setPlaces(response.data.data);
             // console.log(response.data.data);
         }
@@ -25,7 +25,7 @@ function Accomodations() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:4000/api/place/${id}`);
+            await axios.delete(`https://bookstore-backend-bice.vercel.app/api/place/${id}`);
             toast.success("Successfully deleted");
             getPlaces();
         } catch (e) {

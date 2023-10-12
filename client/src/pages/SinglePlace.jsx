@@ -19,7 +19,7 @@ function SinglePlace() {
     const [place, setPlace] = useState(null);
     useEffect(() => {
         if (!id) return;
-        axios.get(`http://localhost:4000/api/place/${id}`).then(response => {
+        axios.get(`https://bookstore-backend-bice.vercel.app/api/place/${id}`).then(response => {
             const { data } = response.data;
             setPlace(data);
         })

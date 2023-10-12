@@ -63,7 +63,7 @@ function PlacesFormPage() {
             data.append("images", files[i])
         }
         try {
-            const response = await axios.post("http://localhost:4000/api/place/upload", data, {
+            const response = await axios.post("https://bookstore-backend-bice.vercel.app/api/place/upload", data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const { data: filenames } = response.data;
@@ -80,7 +80,7 @@ function PlacesFormPage() {
         try {
             if (id) {
                 // Update the existing place
-                const res = await axios.put(`http://localhost:4000/api/place/${id}`, {
+                const res = await axios.put(`https://bookstore-backend-bice.vercel.app/api/place/${id}`, {
                     ...data, images, perks
                 });
                 console.log(res)
@@ -88,7 +88,7 @@ function PlacesFormPage() {
                 setRedirect(true);
             } else {
                 // Create new place
-                await axios.post('http://localhost:4000/api/place/create', {
+                await axios.post('https://bookstore-backend-bice.vercel.app/api/place/create', {
                     ...data, images, perks
                 });
                 setRedirect(true);

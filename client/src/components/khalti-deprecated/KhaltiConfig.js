@@ -24,7 +24,11 @@ let config = {
       };
 
       axios
-        .post(`http://localhost:4000/api/payment/khalti-pay`, data, config)
+        .post(
+          `https://bookstore-backend-bice.vercel.app/api/payment/khalti-pay`,
+          data,
+          config
+        )
         .then((response) => {
           console.log(response.data);
         })

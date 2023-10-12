@@ -8,7 +8,7 @@ function PlaceImg({ place, index = 0, className = null }) {
         className = ' object-cover ';
     }
     return (
-        <img className={className} src={'http://localhost:4000/' + place.photo?.[index]} alt="" />
+        <img className={className} src={'https://bookstore-backend-bice.vercel.app/' + place.photo?.[index]} alt="" />
     )
 }
 
